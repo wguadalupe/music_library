@@ -1,19 +1,18 @@
-import { useContext, useRef } from 'react'; // Added useRef
-import { SearchContext } from '../context/SearchContext'; // Ensure this matches the exported context name
+import { useState } from 'react'
 
-function SearchBar() {
-    const { handleSearch } = useContext(SearchContext);
-    const term = useRef(null); // Using useRef to access the input element
+function SearchBar(props){
+    // We can comment out our searchTerm state variable as we are not using it!
+    // let [searchTerm, setSearchTerm] = useState('')
 
     return (
-        <form onSubmit={(e) => {
-            e.preventDefault(); // Prevent default form submission
-            handleSearch(e, term.current.value); // Call your handleSearch with the input's value
-        }}>
-            <input ref={term} type="text" placeholder="Search Here" />
-            <button type="submit">Submit</button>
-        </form> // Corrected the closing tag for form
-    );
+            <form>
+                <input type="text" placeholder="Search Here"
+                    onChange={
+                        (e) => props.handleSearch(e, e.target.value)
+                    } />
+                <input type="submit" />
+            </form>
+    )
 }
 
-export default SearchBar;
+export default SearchBar
