@@ -1,20 +1,20 @@
-import GalleryItem from './GalleryItem'
+import { useContext } from 'react';
+import { DataContext } from '../context/DataContext';
+import GalleryItem from './GalleryItem';
 
-function Gallery(props){
+const Gallery = () => {
+    const data = useContext(DataContext);
 
-    const display = props.data.map((item, index) => {
-        return (
-            <GalleryItem item={item} key={index} />
-        )
-    })
+    // Safely handle cases where data may not be an array
+    const display = Array.isArray(data) ? data.map((item, index) => (
+        <GalleryItem key={index} item={item} />
+    )) : <p>Loading...</p>; // or some other placeholder content
 
     return (
         <div>
-        {display}
+            {display}
         </div>
-    )
+    );
 }
 
-
-
-export default Gallery
+export default Gallery;
